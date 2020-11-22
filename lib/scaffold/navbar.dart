@@ -13,6 +13,7 @@ class Navbar extends StatefulWidget {
 class _NavbarState extends State<Navbar> {
   int _currentIndex = 0;
   final List<Widget> _children = [
+    // indexed list of pages (do NOT change number or order)
     InventoryList(),
     QRScanner(),
     UserPage(),

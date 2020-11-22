@@ -5,7 +5,8 @@ import 'scaffold/app.dart';
 
 main() {
   runApp(
-    // provider for all changes
+    // top of application tree – provider for all changes on
+    // INVESTIGATE: argument "create" required? 
     ChangeNotifierProvider(
       builder: (context) => Fridge(),
       child: InventoryApp()

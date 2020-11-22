@@ -10,13 +10,15 @@ class AddProductPage extends StatefulWidget {
 }
 
 class _AddProductPageState extends State<AddProductPage> {
+  // local variables
   DateTime _dateTime;
   int tempQuantity = 1;
   String error = "";
 
   @override
   Widget build(BuildContext context) {
-    final fridge = Provider.of<Fridge>(context); // consumer for fridge
+    // consumer
+    final fridge = Provider.of<Fridge>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -73,7 +75,7 @@ class _AddProductPageState extends State<AddProductPage> {
                   shape: CircleBorder(),
                 ),
 
-                // int for quantity
+                // show integer for quantity
                 Text(
                   "$tempQuantity",
                   style: TextStyle(
@@ -85,10 +87,10 @@ class _AddProductPageState extends State<AddProductPage> {
                 // button for quantity -1
                 FlatButton(
                   onPressed: () {
-                    if(tempQuantity > 1){
-                    setState(() {
-                      tempQuantity--;
-                    });
+                    if (tempQuantity > 1) {
+                      setState(() {
+                        tempQuantity--;
+                      });
                     }
                   },
                   color: Colors.red,
@@ -114,6 +116,7 @@ class _AddProductPageState extends State<AddProductPage> {
             Text(
               _dateTime == null
                   ? '–'
+                  // format the date into swiss style (using package intl.dart)
                   : DateFormat('dd.MM.yyyy').format(_dateTime),
               style: TextStyle(
                 fontSize: 20.0,
@@ -135,6 +138,7 @@ class _AddProductPageState extends State<AddProductPage> {
                     .then((pickedDate) {
                   setState(() {
                     _dateTime = pickedDate;
+                    // remove error message if date picked
                     error = "";
                   });
                 });
@@ -143,6 +147,7 @@ class _AddProductPageState extends State<AddProductPage> {
 
             Padding(
               padding: const EdgeInsets.all(40.0),
+              // text only visible if error displayed
               child: Text('$error', style: TextStyle(color: Colors.red)),
             ),
 
@@ -157,18 +162,21 @@ class _AddProductPageState extends State<AddProductPage> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)),
                   onPressed: () {
-                    if(_dateTime == null){
+                    // show error message of no date is picked
+                    if (_dateTime == null) {
                       setState(() {
                         error = "Bitte ein Datum wählen";
                       });
+                      // if all data is set, add product to inventory list
+                    } else {
+                      fridge.addItem(ProductData(
+                          text: fridge.scannedItem,
+                          mhd: DateFormat('dd.MM.yyyy').format(_dateTime),
+                          quantity: this.tempQuantity));
+                      // navigate back to scanner page
+                      // --> INVESTIGATE: how to navigate directly to product list after adding    
+                      Navigator.pop(context);
                     }
-                    else {
-                    fridge.addItem(ProductData(
-                        text: fridge.scannedItem,
-                        mhd: DateFormat('dd.MM.yyyy').format(_dateTime),
-                        quantity: this.tempQuantity));
-                    Navigator.pop(context);
-                  }
                   },
                   child: Text("Hinzufügen", style: TextStyle(fontSize: 20.0)),
                 ),

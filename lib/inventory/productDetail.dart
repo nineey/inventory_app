@@ -18,7 +18,8 @@ class ProductDetail extends StatefulWidget {
 class _ProductDetailState extends State<ProductDetail> {
   @override
   Widget build(BuildContext context) {
-    final fridge = Provider.of<Fridge>(context); // consumer
+    // consumer
+    final fridge = Provider.of<Fridge>(context);
 
     // local variables
     DateTime _dateTime;
@@ -58,6 +59,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           lastDate: DateTime(2031))
                       .then((pickedDate) {
                     fridge.changeDate(widget.item,
+                    // format the date into swiss style (using package intl.dart)
                         DateFormat('dd.MM.yyyy').format(pickedDate));
                   });
                 },
@@ -72,7 +74,6 @@ class _ProductDetailState extends State<ProductDetail> {
                 children: [
                   // button for quantity +1
                   // calls function 'plus' on provider
-
                   FlatButton(
                     onPressed: () {
                       fridge.plus(widget.item);
@@ -87,7 +88,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     shape: CircleBorder(),
                   ),
 
-                  // shows int quantity
+                  // shows int "quantity"
                   Text(widget.item.quantity.toString(),
                       style: TextStyle(fontSize: 20.0)),
 

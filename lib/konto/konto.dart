@@ -11,8 +11,10 @@ class UserPage extends StatefulWidget {
 class _UserPageState extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
-    final fridge = Provider.of<Fridge>(context); // consumer
+    // consumer
+    final fridge = Provider.of<Fridge>(context); 
 
+    // function to delete shared prefs (used for testing)
     Future<void> resetData() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.clear();
@@ -30,6 +32,8 @@ class _UserPageState extends State<UserPage> {
             ),
           Padding(
             padding: const EdgeInsets.all(20.0),
+            // textfield to edit username
+            // if no username is set: username = {Dein Name}
             child: TextField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(),

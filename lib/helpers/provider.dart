@@ -21,7 +21,7 @@ class Fridge extends ChangeNotifier {
 
 
   // list of products for testing
-  // --> investigate how to save data into database / shared prefs
+  // --> INVESTIGATE: how to save list data into shared prefs
   List<ProductData> items = [
     ProductData(text: 'Eier', mhd: '30.10.2020', quantity: 1),
     ProductData(text: 'Käse', mhd: '05.11.2020', quantity: 2),
@@ -72,6 +72,7 @@ class Fridge extends ChangeNotifier {
     notifyListeners();
   }
 
+// changes color of UI
 void changeColor(color) {
   if(color == "blue"){
     this.uiColor = Colors.blue;

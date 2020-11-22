@@ -1,5 +1,5 @@
 // data class for single product
-// --> investigate how to save data into database / shared prefs
+// --> INVESTIGATE: how to save data into shared prefs
 class ProductData {
   String text;
   String mhd;

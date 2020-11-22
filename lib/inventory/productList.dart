@@ -6,11 +6,10 @@ import 'package:FridgerApp/helpers/provider.dart';
 import 'productDetail.dart';
 
 class InventoryList extends StatelessWidget {
-   
   @override
   Widget build(BuildContext context) {
-    
-    final fridge = Provider.of<Fridge>(context); // consumer
+    // consumer
+    final fridge = Provider.of<Fridge>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -30,12 +29,14 @@ class InventoryList extends StatelessWidget {
                   item.mhd,
                 ),
                 trailing: Text('Stück: ' + item.quantity.toString()),
+                // navigate to detail page on tab
                 onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ProductDetail(item)),
-                );
-              },
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProductDetail(item)),
+                  );
+                },
               ),
             );
           },

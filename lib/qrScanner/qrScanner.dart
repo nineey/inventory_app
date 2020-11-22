@@ -12,7 +12,8 @@ class QRScanner extends StatefulWidget {
 class _QRScannerState extends State<QRScanner> {
   @override
   Widget build(BuildContext context) {
-    final fridge = Provider.of<Fridge>(context); // consumer for fridge
+    // consumer
+    final fridge = Provider.of<Fridge>(context); 
 
     return Scaffold(
       appBar: AppBar(
@@ -20,7 +21,6 @@ class _QRScannerState extends State<QRScanner> {
         centerTitle: true,
       ),
       body: Container(
-        // consumer
         padding: EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -29,13 +29,15 @@ class _QRScannerState extends State<QRScanner> {
             FlatButton(
               padding: EdgeInsets.all(15.0),
               onPressed: () async {
-                // open QR or Barcode Scanner on button pressed
+                // open QR Scanner on button pressed
+                // save scanned data into variable "scannedItem" of provider
                 String codeSanner = await FlutterBarcodeScanner.scanBarcode(
                     "#ff6666", "Cancel", true, ScanMode.QR);
                 setState(() {
                   fridge.scannedItem = codeSanner;
                 });
                 // redirect to page 'addProduct' after scanning
+                // --> INVESTIGATE: how to NOT push when scanner is canceled by user without scanning
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => AddProductPage()));
               },
@@ -51,7 +53,7 @@ class _QRScannerState extends State<QRScanner> {
 
             SizedBox(height: 50.0),
 
-            // button for testing purpose (no camera on emulator)
+            // button for testing purpose (no camera on emulator) -> open page "addProduct"
             FlatButton(
               onPressed: () {
                 Navigator.of(context).push(
