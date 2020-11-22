@@ -1,6 +1,7 @@
-# FridgerApp
+# Fridger
 
-A new Flutter project.
+Running school project at FHGR university.
+Building a mobile application with Flutter / Dart. 
 
 ## Getting Started
 
