@@ -1,5 +1,7 @@
 # Fridger
 
+Keeping track of your fridge.
+
 Running school project at FHGR university.
 Building a mobile application with Flutter / Dart. 
 
