@@ -24,7 +24,7 @@ class InventoryList extends StatelessWidget {
 
             return Card(
               child: ListTile(
-                title: Text(item.text),
+                title: Text(item.name),
                 subtitle: Text(
                   item.mhd,
                 ),

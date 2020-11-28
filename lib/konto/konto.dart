@@ -41,9 +41,8 @@ class _UserPageState extends State<UserPage> {
               ),
               onChanged: (text) {
                 setState(() {
-                  fridge.username = text;
+                  fridge.setName(text);
                 });
-                fridge.username = text;
               },
             ),
           ),

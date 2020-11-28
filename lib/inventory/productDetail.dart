@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:FridgerApp/helpers/provider.dart';
-import 'productData.dart';
+import '../helpers/productData.dart';
 
 // detail page for elements in the products list
 // opens by tab on list tile
@@ -31,7 +31,7 @@ class _ProductDetailState extends State<ProductDetail> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              Text(widget.item.text,
+              Text(widget.item.name,
                   style:
                       TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold)),
 

@@ -8,7 +8,7 @@ main() {
     // top of application tree – provider for all changes on
     // INVESTIGATE: argument "create" required? 
     ChangeNotifierProvider(
-      builder: (context) => Fridge(),
+      create: (context) => Fridge(),
       child: InventoryApp()
     )
   );
