@@ -1,78 +1,160 @@
 import 'package:flutter/material.dart';
-import 'package:FridgerApp/inventory/productData.dart';
+import 'package:FridgerApp/helpers/productData.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:async';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+
+
+      
 
 class Fridge extends ChangeNotifier {
-  
+
    Fridge() {
-     //get saved username from shared prefs
+     // get saved username and uiColor from shared prefs
     var prefs = SharedPreferences.getInstance();
-     // Future - wait
     prefs.then((p) {
-        this.username = p.get("username") ?? "{Dein Name}";
-        notifyListeners();
-      });
+      this.username = p.get("username") ?? "{Dein Name}";
+      this.uiColor = colors[p.get("uiColor")] ?? Colors.green;
+      notifyListeners();
+    });
+      // connect to DB and update item list
+      openDB().then((db) {
+      updateItemList();
+    });
   }
 
   // global variables which are used on multiple pages
-  String username;
-  var uiColor = Colors.green;
+  String username = "";
   String scannedItem = "MockItem";
-
-
-  // list of products for testing
-  // --> INVESTIGATE: how to save list data into shared prefs
-  List<ProductData> items = [
-    ProductData(text: 'Eier', mhd: '30.10.2020', quantity: 1),
-    ProductData(text: 'Käse', mhd: '05.11.2020', quantity: 2),
-    ProductData(text: 'Butter', mhd: '10.11.2020', quantity: 3),
-  ];
+  // current UI Color
+  var uiColor;
+  // map to transform String "color" to Material-Color
+  Map<String, MaterialColor> colors = {
+    "blue" : Colors.blue,
+    "green" : Colors.green,
+    "grey" : Colors.grey,
+  };
+  Future<Database> database;
+  List<ProductData> items = [];
   
+  // Open database and create table if not existing
+  Future<Database> openDB() async {
+    WidgetsFlutterBinding.ensureInitialized();
 
-   // Adds [item] to list
-  void addItem(ProductData item) {
-    items.add(item);
+    // Open the database and store the reference.
+    database = openDatabase(
+      // Set the path to the database
+      join(await getDatabasesPath(), 'fridger.db'),
+      // When the database is first created, create a table to store products
+      onCreate: (db, version) {
+        db.execute("CREATE TABLE products(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, mhd TEXT, quantity INTEGER)");
+      },
+      version: 1,
+    );
+    return database;
+  }
+
+
+  // get database and transform data map into list of objects
+  void updateItemList() async {
+    final Database db = await database;
+
+    // Query the table for all product.
+    final List<Map<String, dynamic>> maps = await db.query('products');
+
+    //Convert the List<Map<String, dynamic> into a List<ProductData>.
+    items = List.generate(maps.length, (i) {
+      return ProductData(
+        id: maps[i]['id'],
+        name: maps[i]['name'],
+        mhd: maps[i]['mhd'],
+        quantity: maps[i]['quantity'],
+      );
+    });
+
     notifyListeners();
   }
 
-  // quantity of a single product +1
-  void plus(ProductData item) {
+  void updateItem(item) async{
+    // get a reference to the database
+    final Database db = await database;
+
+    // update the given product
+    await db.update(
+      'products',
+      item.toMap(),
+      // ensure that the product has a matching id
+      where: "id = ?",
+      // Pass the product's ID as a whereArg to prevent SQL injection
+      whereArgs: [item.id],
+    );
+    // call function to update the list view
+    updateItemList();
+  }
+
+
+   // function: Add item to list
+  void addItem(ProductData item) async {
+    // Get a reference to the database.
+    final Database db = await database;
+
+    // Insert the product into the table
+    await db.insert(
+      'products',
+      // call function 'toMap' from class ProductData: transform map out of product data
+      item.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    updateItemList();
+  }
+
+  // function: quantity of a single product +1
+  void plus(ProductData item) async{
     item.quantity++;
-    notifyListeners();
+    updateItem(item);
   }
 
-  // remove item from list
-  void deleteItem(item) {
-    items.remove(item);
-    notifyListeners();
+  // function: remove item from list and database
+  void deleteItem(item) async {
+    // Get a reference to the database.
+    final Database db = await database;
+
+    await db.delete(
+      'products',
+      // Use a `where` clause to delete a specific product.
+      where: "id = ?",
+      // Pass the product's id as a whereArg to prevent SQL injection.
+      whereArgs: [item.id],
+    );
+    updateItemList();
 
   }
 
-  // quantity of a single product -1
-   void minus(ProductData item) {
-    item.quantity--;
-    notifyListeners();
+  // function: quantity of a single product -1
+   void minus(ProductData item) async {
+     item.quantity--;
+     updateItem(item);
   }
 
-  // change expiry date
-  void changeDate(ProductData item, newDate) {
+  // function: change expiry date
+  void changeDate(ProductData item, newDate) async{
     item.mhd = newDate.toString();
-    notifyListeners();
+    updateItem(item);
   }
 
-  // set a username in settings
+  // function: set a username in settings
   void setName(text) {
     this.username = text;
     var prefs = SharedPreferences.getInstance();
     // save username 
-              prefs.then((p) {
-                p.setString("username", text);
-              });
-    
+    prefs.then((p) {
+      p.setString("username", text);
+    });
     notifyListeners();
   }
 
-// changes color of UI
+// function: changes color of UI
 void changeColor(color) {
   if(color == "blue"){
     this.uiColor = Colors.blue;
@@ -83,7 +165,13 @@ void changeColor(color) {
   if(color == "grey"){
     this.uiColor = Colors.grey;
   }
+
+  var prefs = SharedPreferences.getInstance();
+  prefs.then((p) {
+    p.setString("uiColor", color);
+  });
+
   notifyListeners();
 }
 
-}
+} // end of class

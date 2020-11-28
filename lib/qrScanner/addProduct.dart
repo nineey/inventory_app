@@ -1,5 +1,5 @@
 import 'package:FridgerApp/helpers/provider.dart';
-import 'package:FridgerApp/inventory/productData.dart';
+import 'package:FridgerApp/helpers/productData.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -170,7 +170,7 @@ class _AddProductPageState extends State<AddProductPage> {
                       // if all data is set, add product to inventory list
                     } else {
                       fridge.addItem(ProductData(
-                          text: fridge.scannedItem,
+                          name: fridge.scannedItem,
                           mhd: DateFormat('dd.MM.yyyy').format(_dateTime),
                           quantity: this.tempQuantity));
                       // navigate back to scanner page
