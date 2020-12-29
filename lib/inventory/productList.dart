@@ -11,18 +11,20 @@ class InventoryList extends StatelessWidget {
     // consumer
     final fridge = Provider.of<Fridge>(context);
 
+    
     return Scaffold(
       appBar: AppBar(
         title: Text('Kühlschrank von ' + fridge.username),
       ),
       body: Center(
         // building list view with card layout
-        child: ListView.builder(
+        child: 
+        ListView.builder(
           itemCount: fridge.items.length,
           itemBuilder: (context, index) {
             var item = fridge.items[index];
-
-            return Card(
+            if (fridge.items.length >= 1) {
+              return Card(
               child: ListTile(
                 title: Text(item.name),
                 subtitle: Text(
@@ -39,7 +41,15 @@ class InventoryList extends StatelessWidget {
                 },
               ),
             );
-          },
+            }
+            // return error message, if product list is empty
+            else {
+              return Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Text("Keine Produkte vorhanden."),
+              );
+            }
+            }
         ),
       ),
     );
