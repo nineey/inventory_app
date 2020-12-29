@@ -1,19 +1,14 @@
-# Fridger
+# Mobile App Development
 
-Keeping track of your fridge.
+Hierbei handelt es sich um ein Semesterprojekt, das im Rahmen des Moduls *Mobile App Development* an der Fachhochschule Graubünden entstanden ist. 
 
-Running school project at FHGR university.
-Building a mobile application with Flutter / Dart. 
+## Fridger
+Die Anwendung namens ***Fridger*** basiert auf dem Einsatz von Google's Flutter und Dart.
+
+Die Application für iOS und Android ermöglicht dem Nutzer, auf einfache Art und Weise eine Inventarliste seines Kühlschrank zu führen. Dabei kommt ein QR-Scanner zum Einsatz, der das Hinzufügen von Produkten erleichtert. 
+
+
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Damit du die Application ausführen kannst, benötigst du eine Flutter-Installation und einen iOS- oder Android-Emulator. Alle Informationen zur Installation findest du hier: https://flutter.dev/docs/get-started/install
