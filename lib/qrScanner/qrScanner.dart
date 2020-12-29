@@ -64,7 +64,10 @@ class _QRScannerState extends State<QRScanner> {
                   Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => AddProductPage()));
                 },
-                child: Text("MockProdukt hinzufügen (Testing)",
+                shape: RoundedRectangleBorder(
+                    side: BorderSide(color: Colors.grey, width: 2.0),
+                    borderRadius: BorderRadius.circular(10.0)), 
+                child: Text("TestItem hinzufügen",
                 style: TextStyle(
                   color: Colors.grey)
                 ),
