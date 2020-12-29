@@ -1,4 +1,4 @@
-import 'package:FridgerApp/helpers/provider.dart';
+import 'package:FridgerApp/helpers/changeNotifier.dart';
 import 'package:FridgerApp/helpers/productData.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -174,7 +174,6 @@ class _AddProductPageState extends State<AddProductPage> {
                           mhd: DateFormat('dd.MM.yyyy').format(_dateTime),
                           quantity: this.tempQuantity));
                       // navigate back to scanner page
-                      // --> INVESTIGATE: how to navigate directly to product list after adding    
                       Navigator.pop(context);
                     }
                   },

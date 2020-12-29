@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:FridgerApp/helpers/provider.dart';
+import 'package:FridgerApp/helpers/changeNotifier.dart';
 import '../helpers/productData.dart';
 
 // detail page for elements in the products list

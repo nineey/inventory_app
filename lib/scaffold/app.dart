@@ -1,4 +1,4 @@
-import 'package:FridgerApp/helpers/provider.dart';
+import 'package:FridgerApp/helpers/changeNotifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'navbar.dart';

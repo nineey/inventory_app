@@ -1,4 +1,4 @@
-import 'package:FridgerApp/helpers/provider.dart';
+import 'package:FridgerApp/helpers/changeNotifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +37,6 @@ class _QRScannerState extends State<QRScanner> {
                   fridge.scannedItem = codeSanner;
                 });
                 // redirect to page 'addProduct' after scanning
-                // --> INVESTIGATE: how to NOT push when scanner is canceled by user without scanning
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => AddProductPage()));
               },

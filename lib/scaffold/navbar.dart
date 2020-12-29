@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:FridgerApp/inventory/productList.dart';
-import 'package:FridgerApp/konto/konto.dart';
+import 'package:FridgerApp/account/account.dart';
 import 'package:FridgerApp/qrScanner/qrScanner.dart';
 
 class Navbar extends StatefulWidget {
