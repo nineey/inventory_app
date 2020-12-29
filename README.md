@@ -11,3 +11,7 @@ Die Mobile-App für iOS und Android ermöglicht dem Nutzer, auf einfache Art und
 ## Getting Started
 
 Damit du die Anwendung ausführen kannst, benötigst du eine Flutter-Installation und einen iOS- oder Android-Emulator. Für den Einsatz des QR-Scanners wird ein physisches Gerät empfohlen. Alle Informationen zur Installation sind hier zu finden: https://flutter.dev/docs/get-started/install
+
+## Preview
+
+![Screenshots](screenshots.png)
