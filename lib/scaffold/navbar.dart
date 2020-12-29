@@ -43,6 +43,7 @@ class _NavbarState extends State<Navbar> {
     );
   }
 
+  // change index on tab to navigate through pages
   void onTabTapped(int index) {
     setState(() {
       _currentIndex = index;

@@ -26,7 +26,7 @@ class Fridge extends ChangeNotifier {
 
   // global variables which are used on multiple pages
   String username = "";
-  String scannedItem = "MockItem";
+  String scannedItem = "MockItem"; // MockItem is used for testing button
   // current UI Color
   var uiColor;
   // map to transform String "color" to Material-Color
@@ -60,7 +60,7 @@ class Fridge extends ChangeNotifier {
   void updateItemList() async {
     final Database db = await database;
 
-    // Query the table for all product.
+    // Query the table for all products
     final List<Map<String, dynamic>> maps = await db.query('products');
 
     //Convert the List<Map<String, dynamic> into a List<ProductData>.

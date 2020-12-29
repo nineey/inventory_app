@@ -58,7 +58,6 @@ class _AddProductPageState extends State<AddProductPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // button for quantity +1
-
                 FlatButton(
                   onPressed: () {
                     setState(() {

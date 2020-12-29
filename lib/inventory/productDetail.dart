@@ -73,7 +73,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // button for quantity +1
-                  // calls function 'plus' on provider
+                  // calls function 'plus' on "changeNotifier.dart"
                   FlatButton(
                     onPressed: () {
                       fridge.plus(widget.item);
@@ -93,7 +93,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       style: TextStyle(fontSize: 20.0)),
 
                   // button for quantity -1
-                  // calls function 'minus' on provider
+                  // calls function 'minus' on "changeNotifier.dart"
                   FlatButton(
                     onPressed: () {
                       if (widget.item.quantity > 1) {
@@ -113,7 +113,7 @@ class _ProductDetailState extends State<ProductDetail> {
               ),
 
               // button to remove item completely from list
-              // calls function 'deleteItem' on provider
+              // calls function 'deleteItem' on "changeNotifier.dart"
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 250.0, 0, 0),
                 child: FlatButton(

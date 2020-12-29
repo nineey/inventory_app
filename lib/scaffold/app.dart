@@ -13,7 +13,7 @@ class InventoryApp extends StatelessWidget {
     return MaterialApp(
       title: 'Fridger',
       theme: ThemeData(
-        // UI color is set by editable variable "uiColor" (see provider)
+        // UI color is set by editable variable "uiColor" (helpers/changeNotifier.dart)
         primarySwatch: fridge.uiColor,
       ),
       home: Navbar(),

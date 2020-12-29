@@ -14,7 +14,7 @@ class _UserPageState extends State<UserPage> {
     // consumer
     final fridge = Provider.of<Fridge>(context); 
 
-    // function to delete shared prefs (used for testing)
+    // function to delete shared prefs (reset)
     Future<void> resetData() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.clear();
@@ -47,6 +47,8 @@ class _UserPageState extends State<UserPage> {
             ),
           ),
           
+          // actually, username already saved after input. 
+          // but added a saving button for better UX
           FlatButton(
             onPressed: () => fridge.setName(fridge.username),
             child: Text("Speichern"),
