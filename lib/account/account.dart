@@ -31,7 +31,7 @@ class _UserPageState extends State<UserPage> {
               child: Text("Username anpassen", style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
             ),
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 0.0),
             // textfield to edit username
             // if no username is set: username = {Dein Name}
             child: TextField(
@@ -46,16 +46,19 @@ class _UserPageState extends State<UserPage> {
               },
             ),
           ),
-          //
-          //FlatButton(
-           // onPressed: () => fridge.setName(fridge.username),
-           // child: Text("Rename"),
-         // ),
+          
+          FlatButton(
+            onPressed: () => fridge.setName(fridge.username),
+            child: Text("Speichern"),
+          ),
 
 
           SizedBox(height: 30.0),
           // section to change color of UI
-          Text("App-Farbe ändern", style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text("App-Farbe ändern", style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -85,14 +88,14 @@ class _UserPageState extends State<UserPage> {
             ],
           ),
 
-SizedBox(height: 100.0),
+SizedBox(height: 200.0),
           // reset shared prefs
           FlatButton(
             
             onPressed: () {
               resetData();
             },
-            child: Text("Reset shared prefs", style: TextStyle(color: Colors.red)),
+            child: Text("Einstellungen zurücksetzen", style: TextStyle(color: Colors.red)),
           ),
         ],
       ),

@@ -20,47 +20,57 @@ class _QRScannerState extends State<QRScanner> {
         title: Text("Scanner"),
         centerTitle: true,
       ),
-      body: Container(
-        padding: EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            FlatButton(
-              padding: EdgeInsets.all(15.0),
-              onPressed: () async {
-                // open QR Scanner on button pressed
-                // save scanned data into variable "scannedItem" of provider
-                String codeSanner = await FlutterBarcodeScanner.scanBarcode(
-                    "#ff6666", "Cancel", true, ScanMode.QR);
-                setState(() {
-                  fridge.scannedItem = codeSanner;
-                });
-                // redirect to page 'addProduct' after scanning
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => AddProductPage()));
-              },
-              child: Text(
-                "Produkt scannen",
-                style: TextStyle(
-                    color: fridge.uiColor, fontWeight: FontWeight.bold),
+      body: Center(
+        child: Container(
+          padding: EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              FlatButton(
+                padding: EdgeInsets.all(20.0),
+                onPressed: () async {
+                  // open QR Scanner on button pressed
+                  // save scanned data into variable "scannedItem" of provider
+                  String codeSanner = await FlutterBarcodeScanner.scanBarcode(
+                      "#ff6666", "Cancel", true, ScanMode.QR);
+                  setState(() {
+                    fridge.scannedItem = codeSanner;
+                  });
+                  // redirect to page 'addProduct' after scanning
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => AddProductPage()));
+                },
+                child: Column(
+                  children: [
+                    Icon(Icons.camera, color: fridge.uiColor, size: 50.0),
+                    SizedBox(height: 10.0),
+                    Text(
+                      "Produkt scannen",
+                      style: TextStyle(
+                          color: fridge.uiColor, fontWeight: FontWeight.bold, fontSize: 20.0),
+                    ),
+                  ],
+                ),
+                shape: RoundedRectangleBorder(
+                    side: BorderSide(color: fridge.uiColor, width: 3.0),
+                    borderRadius: BorderRadius.circular(10.0)),
               ),
-              shape: RoundedRectangleBorder(
-                  side: BorderSide(color: fridge.uiColor, width: 3.0),
-                  borderRadius: BorderRadius.circular(10.0)),
-            ),
 
-            SizedBox(height: 50.0),
+              SizedBox(height: 20.0),
 
-            // button for testing purpose (no camera on emulator) -> open page "addProduct"
-            FlatButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => AddProductPage()));
-              },
-              child: Text("click for testing"),
-            ),
-          ],
+              // button for testing purpose (no camera on emulator) -> open page "addProduct"
+              FlatButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => AddProductPage()));
+                },
+                child: Text("MockProdukt hinzufügen (Testing)",
+                style: TextStyle(
+                  color: Colors.grey)
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
