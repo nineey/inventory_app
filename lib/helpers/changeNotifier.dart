@@ -5,39 +5,36 @@ import 'dart:async';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-
-      
-
 class Fridge extends ChangeNotifier {
-
-   Fridge() {
-     // get saved username and uiColor from shared prefs
+  Fridge() {
+    // get saved username and uiColor from shared prefs
     var prefs = SharedPreferences.getInstance();
     prefs.then((p) {
       this.username = p.get("username") ?? "{Dein Name}";
       this.uiColor = colors[p.get("uiColor")] ?? Colors.green;
       notifyListeners();
     });
-      // connect to DB and update item list
-      openDB().then((db) {
+    // connect to DB and update item list
+    openDB().then((db) {
       updateItemList();
     });
   }
 
   // global variables which are used on multiple pages
   String username = "";
-  String scannedItem = "MockItem"; // MockItem is used for testing button
+  // Product name is set by scanning (QR-Code). "MockItem" is used for testing button. 
+  String scannedItem = "MockItem"; 
   // current UI Color
   var uiColor;
   // map to transform String "color" to Material-Color
   Map<String, MaterialColor> colors = {
-    "blue" : Colors.blue,
-    "green" : Colors.green,
-    "grey" : Colors.grey,
+    "blue": Colors.blue,
+    "green": Colors.green,
+    "grey": Colors.grey,
   };
   Future<Database> database;
   List<ProductData> items = [];
-  
+
   // Open database and create table if not existing
   Future<Database> openDB() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -48,13 +45,13 @@ class Fridge extends ChangeNotifier {
       join(await getDatabasesPath(), 'fridger.db'),
       // When the database is first created, create a table to store products
       onCreate: (db, version) {
-        db.execute("CREATE TABLE products(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, mhd TEXT, quantity INTEGER)");
+        db.execute(
+            "CREATE TABLE products(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, mhd TEXT, quantity INTEGER)");
       },
       version: 1,
     );
     return database;
   }
-
 
   // get database and transform data map into list of objects
   void updateItemList() async {
@@ -72,11 +69,11 @@ class Fridge extends ChangeNotifier {
         quantity: maps[i]['quantity'],
       );
     });
-
+    // notify product list about changes (new or edited product)
     notifyListeners();
   }
 
-  void updateItem(item) async{
+  void updateItem(item) async {
     // get a reference to the database
     final Database db = await database;
 
@@ -93,8 +90,7 @@ class Fridge extends ChangeNotifier {
     updateItemList();
   }
 
-
-   // function: Add item to list
+  // function: Add item to list
   void addItem(ProductData item) async {
     // Get a reference to the database.
     final Database db = await database;
@@ -110,7 +106,7 @@ class Fridge extends ChangeNotifier {
   }
 
   // function: quantity of a single product +1
-  void plus(ProductData item) async{
+  void plus(ProductData item) async {
     item.quantity++;
     updateItem(item);
   }
@@ -128,17 +124,16 @@ class Fridge extends ChangeNotifier {
       whereArgs: [item.id],
     );
     updateItemList();
-
   }
 
   // function: quantity of a single product -1
-   void minus(ProductData item) async {
-     item.quantity--;
-     updateItem(item);
+  void minus(ProductData item) async {
+    item.quantity--;
+    updateItem(item);
   }
 
   // function: change expiry date
-  void changeDate(ProductData item, newDate) async{
+  void changeDate(ProductData item, newDate) async {
     item.mhd = newDate.toString();
     updateItem(item);
   }
@@ -147,7 +142,7 @@ class Fridge extends ChangeNotifier {
   void setName(text) {
     this.username = text;
     var prefs = SharedPreferences.getInstance();
-    // save username 
+    // save username
     prefs.then((p) {
       p.setString("username", text);
     });
@@ -155,23 +150,32 @@ class Fridge extends ChangeNotifier {
   }
 
 // function: changes color of UI
-void changeColor(color) {
-  if(color == "blue"){
-    this.uiColor = Colors.blue;
+  void changeColor(color) {
+    if (color == "blue") {
+      this.uiColor = Colors.blue;
+    }
+    if (color == "green") {
+      this.uiColor = Colors.green;
+    }
+    if (color == "grey") {
+      this.uiColor = Colors.grey;
+    }
+
+    var prefs = SharedPreferences.getInstance();
+    prefs.then((p) {
+      p.setString("uiColor", color);
+    });
+
+    notifyListeners();
   }
-  if(color == "green"){
+
+   // function to delete shared prefs (reset)
+    Future<void> resetSharedPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+    this.username = "{Dein Name}";
     this.uiColor = Colors.green;
-  }
-  if(color == "grey"){
-    this.uiColor = Colors.grey;
-  }
-
-  var prefs = SharedPreferences.getInstance();
-  prefs.then((p) {
-    p.setString("uiColor", color);
-  });
-
-  notifyListeners();
-}
+    notifyListeners();
+    }
 
 } // end of class

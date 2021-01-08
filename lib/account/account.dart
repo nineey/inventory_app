@@ -14,11 +14,11 @@ class _UserPageState extends State<UserPage> {
     // consumer
     final fridge = Provider.of<Fridge>(context); 
 
-    // function to delete shared prefs (reset)
-    Future<void> resetData() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.clear();
-    }
+    // // function to delete shared prefs (reset)
+    // Future<void> resetData() async {
+    //   SharedPreferences prefs = await SharedPreferences.getInstance();
+    //   await prefs.clear();
+    // }
 
     return Scaffold(
       appBar: AppBar(
@@ -95,7 +95,7 @@ SizedBox(height: 200.0),
           FlatButton(
             
             onPressed: () {
-              resetData();
+              fridge.resetSharedPrefs();
             },
             child: Text("Einstellungen zurücksetzen", style: TextStyle(color: Colors.red)),
           ),
