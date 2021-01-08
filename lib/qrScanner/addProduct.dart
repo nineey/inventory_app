@@ -10,14 +10,14 @@ class AddProductPage extends StatefulWidget {
 }
 
 class _AddProductPageState extends State<AddProductPage> {
-  // local variables
+  // Local variables
   DateTime _dateTime;
   int tempQuantity = 1;
   String error = "";
 
   @override
   Widget build(BuildContext context) {
-    // consumer
+    // Consumer
     final fridge = Provider.of<Fridge>(context);
 
     return Scaffold(
@@ -30,7 +30,7 @@ class _AddProductPageState extends State<AddProductPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // show the scanned item
+            // Show the scanned item
             Text(
               "Produkt",
               style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
@@ -46,18 +46,18 @@ class _AddProductPageState extends State<AddProductPage> {
 
             SizedBox(height: 50.0),
 
-            // input quantity
+            // Section for user entry of the quantity
             Text(
               "Menge",
               style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
 
-            // row of buttons to edit quantity
+            // Row of buttons to edit quantity
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // button for quantity +1
+                // Button for local var of quantity +1
                 FlatButton(
                   onPressed: () {
                     setState(() {
@@ -74,7 +74,7 @@ class _AddProductPageState extends State<AddProductPage> {
                   shape: CircleBorder(),
                 ),
 
-                // show integer for quantity
+                // Show integer for quantity
                 Text(
                   "$tempQuantity",
                   style: TextStyle(
@@ -83,7 +83,7 @@ class _AddProductPageState extends State<AddProductPage> {
                   textAlign: TextAlign.center,
                 ),
 
-                // button for quantity -1
+                // Button for local var of quantity -1
                 FlatButton(
                   onPressed: () {
                     if (tempQuantity > 1) {
@@ -106,7 +106,7 @@ class _AddProductPageState extends State<AddProductPage> {
 
             SizedBox(height: 50.0),
 
-            // date picker
+            // Date picker
             Text(
               "Datum",
               style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
@@ -115,7 +115,7 @@ class _AddProductPageState extends State<AddProductPage> {
             Text(
               _dateTime == null
                   ? '–'
-                  // format the date into swiss style (using package intl.dart)
+                  // Format the date into swiss style (using package intl.dart)
                   : DateFormat('dd.MM.yyyy').format(_dateTime),
               style: TextStyle(
                 fontSize: 20.0,
@@ -137,7 +137,7 @@ class _AddProductPageState extends State<AddProductPage> {
                     .then((pickedDate) {
                   setState(() {
                     _dateTime = pickedDate;
-                    // remove error message if date picked
+                    // Remove error message if date picked
                     error = "";
                   });
                 });
@@ -146,11 +146,11 @@ class _AddProductPageState extends State<AddProductPage> {
 
             Padding(
               padding: const EdgeInsets.all(40.0),
-              // text only visible if error displayed
+              // Text only visible if error occurs
               child: Text('$error', style: TextStyle(color: Colors.red)),
             ),
 
-            // add scanned product
+            // Section to add and save scanned product
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -161,18 +161,18 @@ class _AddProductPageState extends State<AddProductPage> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)),
                   onPressed: () {
-                    // show error message of no date is picked
+                    // Show error message of no date is picked
                     if (_dateTime == null) {
                       setState(() {
                         error = "Bitte ein Datum wählen";
                       });
-                      // if all data is set, add product to inventory list
+                      // If all data is set, add product to inventory list
                     } else {
                       fridge.addItem(ProductData(
                           name: fridge.scannedItem,
                           mhd: DateFormat('dd.MM.yyyy').format(_dateTime),
                           quantity: this.tempQuantity));
-                      // navigate back to scanner page
+                      // Navigate back to scanner page
                       Navigator.pop(context);
                     }
                   },

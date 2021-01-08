@@ -22,8 +22,8 @@ class Fridge extends ChangeNotifier {
 
   // global variables which are used on multiple pages
   String username = "";
-  // Product name is set by scanning (QR-Code). "MockItem" is used for testing button. 
-  String scannedItem = "MockItem"; 
+  // Product name is set by scanning (QR-Code). "MockItem" is used for testing button.
+  String scannedItem = "MockItem";
   // current UI Color
   var uiColor;
   // map to transform String "color" to Material-Color
@@ -169,13 +169,12 @@ class Fridge extends ChangeNotifier {
     notifyListeners();
   }
 
-   // function to delete shared prefs (reset)
-    Future<void> resetSharedPrefs() async {
+  // function to delete shared prefs (reset)
+  Future<void> resetSharedPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
     this.username = "{Dein Name}";
     this.uiColor = Colors.green;
     notifyListeners();
-    }
-
+  }
 } // end of class

@@ -8,7 +8,7 @@ main() {
     // top of application tree – provider for all changes on
     ChangeNotifierProvider(
       create: (context) => Fridge(),
-      child: InventoryApp()
-    )
+      child: InventoryApp(),
+    ),
   );
 }

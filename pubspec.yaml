@@ -28,8 +28,8 @@ dependencies:
   flutter_barcode_scanner: ^1.0.1 # qr scanner
   intl: any # used to format date
   shared_preferences: ^0.5.6 # save data to internal memory
-  sqflite: ^1.3.2+1 #classes and functions to interact with a SQLite database
-  path: ^1.7.0 #functions to define the location for storing the database on disk
+  sqflite: ^1.3.2+1 # classes and functions to interact with a SQLite database
+  path: ^1.7.0 # functions to define the location for storing the database on disk
 
 
 

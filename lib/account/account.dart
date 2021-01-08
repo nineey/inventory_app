@@ -11,14 +11,8 @@ class UserPage extends StatefulWidget {
 class _UserPageState extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
-    // consumer
-    final fridge = Provider.of<Fridge>(context); 
-
-    // // function to delete shared prefs (reset)
-    // Future<void> resetData() async {
-    //   SharedPreferences prefs = await SharedPreferences.getInstance();
-    //   await prefs.clear();
-    // }
+    // Consumer
+    final fridge = Provider.of<Fridge>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -26,14 +20,15 @@ class _UserPageState extends State<UserPage> {
       ),
       body: Column(
         children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB (0.0, 20.0, 0.0, 0.0),
-              child: Text("Username anpassen", style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
-            ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
+            child: Text("Username anpassen",
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          ),
           Padding(
             padding: const EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 0.0),
-            // textfield to edit username
-            // if no username is set: username = {Dein Name}
+            // Textfield to edit current username
+            // If no username is set: username = {Dein Name}
             child: TextField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
@@ -46,20 +41,22 @@ class _UserPageState extends State<UserPage> {
               },
             ),
           ),
-          
-          // actually, username already saved after input. 
-          // but added a saving button for better UX
+
+          // Actually, username already saved after input.
+          // But added a saving button for better UX
           FlatButton(
             onPressed: () => fridge.setName(fridge.username),
             child: Text("Speichern"),
           ),
 
-
           SizedBox(height: 30.0),
-          // section to change color of UI
+
+          // Section to change color of UI
+          // Directly saved to SharedPrefs after change
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text("App-Farbe ändern", style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+            child: Text("App-Farbe ändern",
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -71,7 +68,9 @@ class _UserPageState extends State<UserPage> {
                 },
                 child: Text("Blau", style: TextStyle(color: Colors.white)),
               ),
-              SizedBox(width: 20.0,),
+              SizedBox(
+                width: 20.0,
+              ),
               FlatButton(
                 color: Colors.green,
                 onPressed: () {
@@ -79,7 +78,9 @@ class _UserPageState extends State<UserPage> {
                 },
                 child: Text("Grün", style: TextStyle(color: Colors.white)),
               ),
-              SizedBox(width: 20.0,),
+              SizedBox(
+                width: 20.0,
+              ),
               FlatButton(
                 color: Colors.grey,
                 onPressed: () {
@@ -90,14 +91,15 @@ class _UserPageState extends State<UserPage> {
             ],
           ),
 
-SizedBox(height: 200.0),
-          // reset shared prefs
+          SizedBox(height: 200.0),
+
+          // Button to reset shared prefs (username + uiColor)
           FlatButton(
-            
             onPressed: () {
               fridge.resetSharedPrefs();
             },
-            child: Text("Einstellungen zurücksetzen", style: TextStyle(color: Colors.red)),
+            child: Text("Einstellungen zurücksetzen",
+                style: TextStyle(color: Colors.red)),
           ),
         ],
       ),

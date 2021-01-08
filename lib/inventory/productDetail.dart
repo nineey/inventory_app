@@ -4,8 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:FridgerApp/helpers/changeNotifier.dart';
 import '../helpers/productData.dart';
 
-// detail page for elements in the products list
-// opens by tab on list tile
+// Detail page for elements in the products list
+// Opens by tab on list tile
+// Also used to edit product data
 class ProductDetail extends StatefulWidget {
   final ProductData item;
 
@@ -18,10 +19,10 @@ class ProductDetail extends StatefulWidget {
 class _ProductDetailState extends State<ProductDetail> {
   @override
   Widget build(BuildContext context) {
-    // consumer
+    // Consumer
     final fridge = Provider.of<Fridge>(context);
 
-    // local variables
+    // Local variables
     DateTime _dateTime;
 
     return Scaffold(
@@ -37,14 +38,15 @@ class _ProductDetailState extends State<ProductDetail> {
 
               SizedBox(height: 20),
 
-              // expiry date
+              // Expiry date
               Text("Mindestens haltbar bis:",
                   style:
                       TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold)),
               SizedBox(height: 10.0),
               Text(widget.item.mhd, style: TextStyle(fontSize: 20.0)),
 
-              // button to edit date
+              // Button to edit date
+              // Opens the date picker
               FlatButton(
                 shape: RoundedRectangleBorder(
                     side: BorderSide(color: fridge.uiColor, width: 3.0),
@@ -58,8 +60,9 @@ class _ProductDetailState extends State<ProductDetail> {
                           firstDate: DateTime(2020),
                           lastDate: DateTime(2031))
                       .then((pickedDate) {
-                    fridge.changeDate(widget.item,
-                    // format the date into swiss style (using package intl.dart)
+                    fridge.changeDate(
+                        widget.item,
+                        // Format the date into swiss style (using package intl.dart)
                         DateFormat('dd.MM.yyyy').format(pickedDate));
                   });
                 },
@@ -72,8 +75,8 @@ class _ProductDetailState extends State<ProductDetail> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // button for quantity +1
-                  // calls function 'plus' on "changeNotifier.dart"
+                  // Button for quantity +1
+                  // Calls function 'plus' on "changeNotifier.dart"
                   FlatButton(
                     onPressed: () {
                       fridge.plus(widget.item);
@@ -88,12 +91,12 @@ class _ProductDetailState extends State<ProductDetail> {
                     shape: CircleBorder(),
                   ),
 
-                  // shows int "quantity"
+                  // Shows int "quantity"
                   Text(widget.item.quantity.toString(),
                       style: TextStyle(fontSize: 20.0)),
 
-                  // button for quantity -1
-                  // calls function 'minus' on "changeNotifier.dart"
+                  // Button for quantity -1
+                  // Calls function 'minus' on "changeNotifier.dart"
                   FlatButton(
                     onPressed: () {
                       if (widget.item.quantity > 1) {
@@ -112,8 +115,8 @@ class _ProductDetailState extends State<ProductDetail> {
                 ],
               ),
 
-              // button to remove item completely from list
-              // calls function 'deleteItem' on "changeNotifier.dart"
+              // Button to remove item completely from list
+              // Calls function 'deleteItem' on "changeNotifier.dart"
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 250.0, 0, 0),
                 child: FlatButton(

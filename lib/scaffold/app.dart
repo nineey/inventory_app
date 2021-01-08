@@ -8,7 +8,7 @@ class InventoryApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // consumer
-    final fridge = Provider.of<Fridge>(context); 
+    final fridge = Provider.of<Fridge>(context);
 
     return MaterialApp(
       title: 'Fridger',

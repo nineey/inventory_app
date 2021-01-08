@@ -1,4 +1,4 @@
-// data class for single product
+// Data class for single product
 class ProductData {
   int id;
   String name;
@@ -20,5 +20,4 @@ class ProductData {
       'quantity': quantity,
     };
   }
-
 }
